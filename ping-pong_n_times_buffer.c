@@ -4,6 +4,7 @@
 int main(int argc, char **argv)
 {
     int rank, size, message, i;
+    double start_time, end_time, total_time;
     MPI_Status status;
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -16,6 +17,8 @@ int main(int argc, char **argv)
     }
 
     int buffer_attached_size;
+
+    start_time = MPI_Wtime();
 
     if (rank == 0)
     {
@@ -52,6 +55,9 @@ int main(int argc, char **argv)
             free(buffer_attached);
         }
     }
+    end_time = MPI_Wtime();
+    total_time = end_time - start_time;
+    printf("Total time: %f seconds\n", total_time);
     MPI_Buffer_detach(&message, &size);
     MPI_Finalize();
     return 0;

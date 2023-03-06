@@ -40,7 +40,7 @@ int main(int argc, char **argv)
         buffer_attached_size = MPI_BSEND_OVERHEAD + sizeof(int);
         char *buffer_attached = (char *)malloc(buffer_attached_size);
         MPI_Buffer_attach(buffer_attached, buffer_attached_size);
-        message = 84;
+        message = 1;
         MPI_Bsend(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 
         MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);

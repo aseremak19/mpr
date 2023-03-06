@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-    int rank, size, message, i;
+    int rank, size, message, i, iteration_limit;
     double start_time, end_time, total_time;
     MPI_Status status;
     MPI_Init(&argc, &argv);
@@ -18,11 +18,13 @@ int main(int argc, char **argv)
 
     int buffer_attached_size;
 
+    iteration_limit = 100;
+
     start_time = MPI_Wtime();
 
     if (rank == 0)
     {
-        for (i = 0; i < 10; i++)
+        for (i = 0; i < iteration_limit; i++)
         {
             buffer_attached_size = MPI_BSEND_OVERHEAD + sizeof(int);
             char *buffer_attached = (char *)malloc(buffer_attached_size);
@@ -40,7 +42,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        for (i = 0; i < 10; i++)
+        for (i = 0; i < iteration_limit; i++)
         {
             MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
             printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);

@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-    int rank, size, message;
+    int rank, size, message, i;
     MPI_Status status;
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -14,8 +14,9 @@ int main(int argc, char **argv)
         MPI_Finalize();
         return 1;
     }
-    int iterations_limit = 10;
-    int i = 0;
+    int iterations_limit = 100;
+
+    i = 0;
 
     while (i < iterations_limit)
     {

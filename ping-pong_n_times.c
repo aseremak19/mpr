@@ -37,6 +37,7 @@ int main(int argc, char **argv)
             printf("Process %d received message %d from process %d at iteration: %d\n", rank, message, status.MPI_SOURCE, i);
             message = 1;
             MPI_Send(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+            i++;
         }
     }
     end_time = MPI_Wtime();

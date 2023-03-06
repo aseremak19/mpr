@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     }
     end_time = MPI_Wtime();
     total_time = end_time - start_time;
-    printf("Total time: %f seconds\n", total_time);
+    printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
     MPI_Finalize();
     return 0;
 }

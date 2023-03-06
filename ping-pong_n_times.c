@@ -28,13 +28,13 @@ int main(int argc, char **argv)
             message = 0;
             MPI_Send(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
-            printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);
+            printf("Process %d received message %d from process %d at iteration: %d\n", rank, message, status.MPI_SOURCE, i);
             i++;
         }
         else
         {
             MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
-            printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);
+            printf("Process %d received message %d from process %d at iteration: %d\n", rank, message, status.MPI_SOURCE, i);
             message = 1;
             MPI_Send(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }

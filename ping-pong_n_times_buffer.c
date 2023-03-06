@@ -1,12 +1,9 @@
 #include <mpi.h>
 #include <stdio.h>
 
-#define NUM_MESSAGES 10
-
 int main(int argc, char **argv)
 {
-    int rank, size, message;
-    int buffer_size = NUM_MESSAGES * sizeof(int);
+    int rank, size, message, i;
     MPI_Status status;
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -17,30 +14,45 @@ int main(int argc, char **argv)
         MPI_Finalize();
         return 1;
     }
-    MPI_Buffer_attach(malloc(buffer_size), buffer_size);
+
+    int buffer_attached_size;
+
     if (rank == 0)
     {
-        int i;
-        for (i = 0; i < NUM_MESSAGES; i++)
+        for (i = 0; i < 10; i++)
         {
+            buffer_attached_size = MPI_BSEND_OVERHEAD + sizeof(int);
+            char *buffer_attached = (char *)malloc(buffer_attached_size);
+            MPI_Buffer_attach(buffer_attached, buffer_attached_size);
+
+            // Buffer
             message = 0;
             MPI_Bsend(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
-            printf("Process %d received message %d from process %d (%d/%d)\n", rank, message, status.MPI_SOURCE, i + 1, NUM_MESSAGES);
+            printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);
+
+            MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);
+            free(buffer_attached);
         }
     }
     else
     {
-        int i;
-        for (i = 0; i < NUM_MESSAGES; i++)
+        for (i = 0; i < 10; i++)
         {
             MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
-            printf("Process %d received message %d from process %d (%d/%d)\n", rank, message, status.MPI_SOURCE, i + 1, NUM_MESSAGES);
+            printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);
+
+            buffer_attached_size = MPI_BSEND_OVERHEAD + sizeof(int);
+            char *buffer_attached = (char *)malloc(buffer_attached_size);
+            MPI_Buffer_attach(buffer_attached, buffer_attached_size);
             message = 1;
             MPI_Bsend(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+
+            MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);
+            free(buffer_attached);
         }
     }
-    MPI_Buffer_detach(&message, &buffer_size);
+    MPI_Buffer_detach(&message, &size);
     MPI_Finalize();
     return 0;
 }

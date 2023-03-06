@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     {
         if (rank == 0)
         {
-            message = 42;
+            message = 0;
             MPI_Send(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
             printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
         {
             MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
             printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);
-            message = 84;
+            message = 1;
             MPI_Send(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }
     }

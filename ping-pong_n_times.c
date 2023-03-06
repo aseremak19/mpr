@@ -4,6 +4,7 @@
 int main(int argc, char **argv)
 {
     int rank, size, message, i;
+    double start_time, end_time, total_time;
     MPI_Status status;
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -17,6 +18,8 @@ int main(int argc, char **argv)
     int iterations_limit = 100;
 
     i = 0;
+
+    start_time = MPI_Wtime();
 
     while (i < iterations_limit)
     {
@@ -36,6 +39,9 @@ int main(int argc, char **argv)
             MPI_Send(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }
     }
+    end_time = MPI_Wtime();
+    total_time = end_time - start_time;
+    printf("Total time: %f seconds\n", total_time);
     MPI_Finalize();
     return 0;
 }

@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 
     start_time = MPI_Wtime();
 
-    while (i < iterations_limit)
+    while (i < iterations_limit + 1)
     {
         if (rank == 0)
         {

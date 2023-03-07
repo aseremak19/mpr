@@ -33,19 +33,19 @@ int main(int argc, char **argv)
             // message = 0;
 
             int j;
-            printf("Iteraton: %d;  ", i);
+            // printf("Iteraton: %d;  ", i);
             for (j = 0; j < i + 1; j++)
             {
                 message[j] = 1;
-                printf("%d", message[j]);
+                // printf("%d", message[j]);
             }
 
             // message++;
             start_time = MPI_Wtime();
             MPI_Send(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
-            printf("Process %d received message %d from process %d at iteration: %d\n", rank, *message, status.MPI_SOURCE, i);
-            //  i++;
+            // printf("Process %d received message %d from process %d at iteration: %d\n", rank, *message, status.MPI_SOURCE, i);
+            //   i++;
             end_time = MPI_Wtime();
             total_time = (end_time - start_time) / 2;
             printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
@@ -53,8 +53,8 @@ int main(int argc, char **argv)
         else
         {
             MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
-            printf("Process %d received message %d from process %d at iteration: %d\n", rank, *message, status.MPI_SOURCE, i);
-            // message = 1;
+            // printf("Process %d received message %d from process %d at iteration: %d\n", rank, *message, status.MPI_SOURCE, i);
+            //  message = 1;
             MPI_Send(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
             // i++;
         }

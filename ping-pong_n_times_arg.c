@@ -36,6 +36,7 @@ int main(int argc, char **argv)
             for (j = 0; j < i + 1; j++)
             {
                 message[j] = rand();
+                printf("%d", message[j]);
             }
 
             // message++;

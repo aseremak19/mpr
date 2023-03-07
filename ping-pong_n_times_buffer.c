@@ -20,8 +20,10 @@ int main(int argc, char **argv)
 
     iteration_limit = 100;
 
-    start_time = MPI_Wtime();
+    message = 0
 
+        // start_time = MPI_Wtime();
+        MPI_Barrier(MPI_COMM_WORLD);
     if (rank == 0)
     {
         for (i = 0; i < iteration_limit; i++)
@@ -31,13 +33,18 @@ int main(int argc, char **argv)
             MPI_Buffer_attach(buffer_attached, buffer_attached_size);
 
             // Buffer
-            message = 0;
+            message++;
+
+            start_time = MPI_Wtime();
             MPI_Bsend(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
             printf("Process %d received message %d from process %d\n", rank, message, status.MPI_SOURCE);
 
             MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);
             free(buffer_attached);
+            // end_time = MPI_Wtime();
+            // total_time = end_time - start_time;
+            // printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
         }
     }
     else
@@ -50,16 +57,16 @@ int main(int argc, char **argv)
             buffer_attached_size = MPI_BSEND_OVERHEAD + sizeof(int);
             char *buffer_attached = (char *)malloc(buffer_attached_size);
             MPI_Buffer_attach(buffer_attached, buffer_attached_size);
-            message = 1;
+            // message = 1;
             MPI_Bsend(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 
             MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);
             free(buffer_attached);
         }
     }
-    end_time = MPI_Wtime();
-    total_time = end_time - start_time;
-    printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
+    // end_time = MPI_Wtime();
+    // total_time = end_time - start_time;
+    // printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
     MPI_Buffer_detach(&message, &size);
     MPI_Finalize();
     return 0;

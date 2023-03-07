@@ -35,7 +35,6 @@ int main(int argc, char **argv)
             int j;
             printf("Iteraton: %d;  ", i);
             for (j = 0; j < i + 1; j++)
-                ;
             {
                 message[j] = 1;
                 printf("%d", message[j]);

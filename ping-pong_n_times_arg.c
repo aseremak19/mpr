@@ -16,7 +16,7 @@ int main(int argc, char **argv)
         MPI_Finalize();
         return 1;
     }
-    int iterations_limit = 100;
+    int iterations_limit = 1000;
 
     i = 0;
 

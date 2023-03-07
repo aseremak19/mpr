@@ -27,17 +27,18 @@ int main(int argc, char **argv)
     MPI_Barrier(MPI_COMM_WORLD);
     while (i < iterations_limit + 1)
     {
+        int message[i + 1];
         if (rank == 0)
         {
             // message = 0;
-            int message[i + 1];
+
             int j;
             for (j = 0; j < i + 1; j++)
             {
                 message[j] = rand();
             }
 
-            message++;
+            // message++;
             start_time = MPI_Wtime();
             MPI_Send(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(&message, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);

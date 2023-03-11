@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv)
 {
-    int rank, size, i;
+    int rank, size, i, j;
     int send_size, recv_size;
     int *send_array;
     int *recv_array;
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
             if (rank == 0)
             {
                 // Initialize the send array
-                for (int j = 0; j < send_size; j++)
+                for (j = 0; j < send_size; j++)
                 {
                     send_array[j] = j + rank * send_size;
                 }

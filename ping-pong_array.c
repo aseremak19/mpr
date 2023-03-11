@@ -36,6 +36,8 @@ int main(int argc, char **argv)
     int recv_1_array[iteration_limit];
     int recv_0_array[iteration_limit];
 
+    srand(time(0));
+
     // Set up the array to be sent
 
     for (i = 0; i < iteration_limit; i++)

@@ -29,7 +29,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    int iteration_limit = 10;
+    int iteration_limit = 100;
 
     int send_0_array[iteration_limit];
     int recv_1_array[iteration_limit];

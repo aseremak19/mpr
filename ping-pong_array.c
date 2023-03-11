@@ -27,12 +27,14 @@ int main(int argc, char **argv)
     int recv_0_array[iteration_limit];
 
     // Set up the array to be sent
+
     for (i = 0; i < iteration_limit; i++)
     {
         send_0_array[i] = i + rank * iteration_limit;
     }
 
-    for (i = 0; i < iteration_limit; i++)
+    i = 0;
+    while (i < iteration_limit)
     {
         printf("Iteration %d\n", i);
         // Send the array from rank 0
@@ -58,6 +60,7 @@ int main(int argc, char **argv)
             printf("\n");
             MPI_Send(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }
+        i++;
     }
 
     // Finalize MPI

@@ -3,6 +3,15 @@
 
 #define ARRAY_SIZE 10
 
+int getRandom(int lower, int upper)
+{
+    int num = (rand() %
+               (upper - lower + 1)) +
+              lower;
+    // printf("%d ", num);
+    return num;
+}
+
 int main(int argc, char **argv)
 {
 
@@ -30,7 +39,7 @@ int main(int argc, char **argv)
 
     for (i = 0; i < iteration_limit; i++)
     {
-        send_0_array[i] = i + rank * iteration_limit;
+        send_0_array[i] = i + rank * getRandom(1, 15);
     }
 
     i = 0;
@@ -41,27 +50,36 @@ int main(int argc, char **argv)
         //  Send the array from rank 0
         if (rank == 0)
         {
+            MPI_Barrier(MPI_COMM_WORLD);
+            start_time = MPI_Wtime();
+
             MPI_Send(send_0_array, i, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(recv_0_array, i, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-            printf("Rank %d received array:", rank);
+            /*printf("Rank %d received array:", rank);
             for (j = 0; j < i; j++)
             {
                 printf(" %d", recv_0_array[j]);
             }
-            printf("\n");
+            printf("\n");*/
+
+            // Measurign and displaying time
+            end_time = MPI_Wtime();
+            total_time = (end_time - start_time) / 2;
+            printf("Rank: %d; Total time: %.15f seconds\n", rank, total_time);
         }
         else
         {
+            MPI_Barrier(MPI_COMM_WORLD);
             MPI_Recv(recv_1_array, i, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-            printf("Rank %d received array:", rank);
+            /*printf("Rank %d received array:", rank);
             for (j = 0; j < i; j++)
             {
                 printf(" %d", recv_1_array[j]);
             }
             printf("\n");
-            printf("\n");
+            printf("\n");*/
 
             MPI_Send(recv_1_array, i, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }

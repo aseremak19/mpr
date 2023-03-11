@@ -5,9 +5,6 @@
 
 int main(int argc, char **argv)
 {
-    int send_0_array[ARRAY_SIZE];
-    int recv_1_array[ARRAY_SIZE];
-    int recv_0_array[ARRAY_SIZE];
 
     // Initialize MPI
     int rank, size, i;
@@ -23,13 +20,19 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    int iteration_limit = 10;
+
+    int send_0_array[iteration_limit];
+    int recv_1_array[iteration_limit];
+    int recv_0_array[iteration_limit];
+
     // Set up the array to be sent
-    for (i = 0; i < ARRAY_SIZE; i++)
+    for (i = 0; i < iteration_limit; i++)
     {
-        send_0_array[i] = i + rank * ARRAY_SIZE;
+        send_0_array[i] = i + rank * iteration_limit;
     }
 
-    // Send the array from rank 0 to all other ranks
+    // Send the array from rank 0
     if (rank == 0)
     {
         MPI_Send(send_0_array, ARRAY_SIZE, MPI_INT, 1, 0, MPI_COMM_WORLD);

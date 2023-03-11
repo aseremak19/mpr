@@ -42,9 +42,9 @@ int main(int argc, char **argv)
 
             MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);
             free(buffer_attached);
-            // end_time = MPI_Wtime();
-            // total_time = end_time - start_time;
-            // printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
+            end_time = MPI_Wtime();
+            total_time = (end_time - start_time) / 2;
+            printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
         }
     }
     else

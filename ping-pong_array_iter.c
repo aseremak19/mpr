@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     int j, z;
     for (i = 0; i <= iteration_limit; i++)
     {
-        total_time = 0;
+        total_time = 0.0;
         for (z = 0; z <= iterations_per_limit; z++)
         {
             // printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);

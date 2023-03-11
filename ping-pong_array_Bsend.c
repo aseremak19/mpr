@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
     int iteration_limit, iteration_per_;
 
-    iteration_limit = 1000;
+    iteration_limit = 1000 * 3;
     iteration_per_ = 100;
 
     // Initialize MPI
@@ -76,7 +76,7 @@ int main(int argc, char **argv)
                 MPI_Bsend(send_0_array, send_size, MPI_INT, 1, 0, MPI_COMM_WORLD);
                 MPI_Recv(recv_0_array, recv_size, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 end_time = MPI_Wtime();
-                total_time += end_time - start_time;
+                total_time += (end_time - start_time) / 2;
             }
             else
             {

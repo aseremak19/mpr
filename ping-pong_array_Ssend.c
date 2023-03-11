@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 
     int iteration_limit, iteration_per_;
 
-    iteration_limit = 1000;
+    iteration_limit = 1000 * 3;
     iteration_per_ = 100;
 
     // Initialize MPI

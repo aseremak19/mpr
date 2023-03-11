@@ -5,7 +5,6 @@
 
 int main(int argc, char **argv)
 {
-    int rank, size;
     int send_array[ARRAY_SIZE];
     int recv_array[ARRAY_SIZE];
 

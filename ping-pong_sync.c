@@ -42,10 +42,11 @@ int main(int argc, char **argv)
 
         size_t size = sizeof(message) / sizeof(message[0]);
         printf("Size of: %d\n ", size);
-
+        printf("---- Array:\n ");
         for (j = 0; j < size; j++)
         {
             message[j] = getRandom(1, 15);
+            printf(" %d ", message[j]);
         }
 
         if (rank == 0)

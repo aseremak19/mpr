@@ -5,8 +5,9 @@
 
 int main(int argc, char **argv)
 {
-    int send_array[ARRAY_SIZE];
-    int recv_array[ARRAY_SIZE];
+    int send_0_array[ARRAY_SIZE];
+    int recv_1_array[ARRAY_SIZE];
+    int recv_0_array[ARRAY_SIZE];
 
     // Initialize MPI
     int rank, size, i;
@@ -31,17 +32,25 @@ int main(int argc, char **argv)
     // Send the array from rank 0 to all other ranks
     if (rank == 0)
     {
-        MPI_Send(send_array, ARRAY_SIZE, MPI_INT, 1, 0, MPI_COMM_WORLD);
-    }
-    else
-    {
-        MPI_Recv(recv_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Send(send_0_array, ARRAY_SIZE, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        MPI_Recv(recv_0_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         printf("Rank %d received array:", rank);
         for (i = 0; i < ARRAY_SIZE; i++)
         {
             printf(" %d", recv_array[i]);
         }
         printf("\n");
+    }
+    else
+    {
+        MPI_Recv(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("Rank %d received array:", rank);
+        for (i = 0; i < ARRAY_SIZE; i++)
+        {
+            printf(" %d", recv_array[i]);
+        }
+        printf("\n");
+        MPI_Send(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD);
     }
 
     // Finalize MPI

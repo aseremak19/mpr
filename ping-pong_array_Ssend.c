@@ -67,7 +67,7 @@ int main(int argc, char **argv)
                 MPI_Ssend(send_0_array, send_size, MPI_INT, 1, 0, MPI_COMM_WORLD);
                 MPI_Recv(recv_0_array, recv_size, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 end_time = MPI_Wtime();
-                total_time += end_time - start_time;
+                total_time += (end_time - start_time) / 2;
             }
             else
             {

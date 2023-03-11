@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 
     i = 0;
     int j;
-    for (i = 0; i < iteration_limit; i++)
+    for (i = 0; i <= iteration_limit; i++)
     {
         // printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);
         //  Send the array from rank 0

@@ -48,6 +48,7 @@ int main(int argc, char **argv)
             message[j] = getRandom(1, 15);
             printf(" %d ", message[j]);
         }
+        printf("\n \n");
 
         if (rank == 0)
         {

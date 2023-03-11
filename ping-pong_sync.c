@@ -32,11 +32,15 @@ int main(int argc, char **argv)
 
     int message[iterations_limit + 1];
     int j;
+    size_t size_message = sizeof(message) / sizeof(message[0]);
+    printf("Size of: %d\n ", size_message);
+
+    int *message_aloc;
+    message_aloc = (int *)malloc(size_message + 1);
 
     if (rank == 0)
     {
-        size_t size_message = sizeof(message) / sizeof(message[0]);
-        printf("Size of: %d\n ", size_message);
+
         printf("---- Array message:\n ");
         for (j = 0; j < size_message; j++)
         {
@@ -44,9 +48,6 @@ int main(int argc, char **argv)
             printf(" %d ", message[j]);
         }
         printf("\n \n");
-
-        int *message_aloc;
-        message_aloc = (int *)malloc(size_message + 1);
 
         printf("---- Array message_aloc:\n ");
         for (j = 0; j < size_message; j++)
@@ -115,6 +116,8 @@ int main(int argc, char **argv)
     // total_time = end_time - start_time;
     // printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
     MPI_Finalize();
+
     free(message_aloc);
+
     return 0;
 }

@@ -33,18 +33,28 @@ int main(int argc, char **argv)
     int message[iterations_limit + 1];
     int j;
 
-    size_t size_message = sizeof(message) / sizeof(message[0]);
-    printf("Size of: %d\n ", size_message);
-    printf("---- Array:\n ");
-    for (j = 0; j < size_message; j++)
+    if (rank == 0)
     {
-        message[j] = getRandom(1, 15);
-        printf(" %d ", message[j]);
-    }
-    printf("\n \n");
+        size_t size_message = sizeof(message) / sizeof(message[0]);
+        printf("Size of: %d\n ", size_message);
+        printf("---- Array message:\n ");
+        for (j = 0; j < size_message; j++)
+        {
+            message[j] = getRandom(1, 15);
+            printf(" %d ", message[j]);
+        }
+        printf("\n \n");
 
-    int *message_aloc;
-    message_aloc = (int *)malloc(size_message + 1);
+        int *message_aloc;
+        message_aloc = (int *)malloc(size_message + 1);
+
+        printf("---- Array message_aloc:\n ");
+        for (j = 0; j < size_message; j++)
+        {
+            message_aloc[j] = message[j];
+            printf(" %d ", message_aloc[j]);
+        }
+    }
 
     // start_time = MPI_Wtime();
 

@@ -73,13 +73,13 @@ int main(int argc, char **argv)
             MPI_Barrier(MPI_COMM_WORLD);
             MPI_Recv(recv_1_array, i, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-            /*printf("Rank %d received array:", rank);
+            printf("Rank %d received array:", rank);
             for (j = 0; j < i; j++)
             {
                 printf(" %d", recv_1_array[j]);
             }
             printf("\n");
-            printf("\n");*/
+            printf("\n");
 
             MPI_Ssend(recv_1_array, i, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }

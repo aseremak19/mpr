@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     }
 
     // Perform ping-pong communication between the two processes with varying array sizes
-    for (send_size = 100; send_size <= 1000 * 7; send_size += 100)
+    for (send_size = 10; send_size <= 1000; send_size += 10)
     {
         recv_size = send_size;
         send_array = (int *)malloc(send_size * sizeof(int));

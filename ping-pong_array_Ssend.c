@@ -6,8 +6,8 @@ int main(int argc, char **argv)
 {
     int rank, size, i, j;
     int send_size, recv_size;
-    int *send_array;
-    int *recv_array;
+    int *send_0_array;
+    int *recv_1_array;
     double start_time, end_time, total_time, avg_time;
 
     int iteration_limit, iteration_per_;
@@ -47,8 +47,9 @@ int main(int argc, char **argv)
     for (send_size = 1; send_size <= iteration_limit; send_size += 1)
     {
         recv_size = send_size;
-        send_array = (int *)malloc(send_size * sizeof(int));
-        recv_array = (int *)malloc(recv_size * sizeof(int));
+        send_0_array = (int *)malloc(send_size * sizeof(int));
+        recv_1_array = (int *)malloc(recv_size * sizeof(int));
+        recv_0_array = (int *)malloc(recv_size * sizeof(int));
 
         total_time = 0.0;
         for (i = 0; i < iteration_per_; i++)
@@ -58,19 +59,19 @@ int main(int argc, char **argv)
                 // Initialize the send array
                 for (j = 0; j < send_size; j++)
                 {
-                    send_array[j] = j + rank * send_size;
+                    send_0_array[j] = j + rank * send_size;
                 }
 
                 start_time = MPI_Wtime();
-                MPI_Ssend(send_array, send_size, MPI_INT, 1, 0, MPI_COMM_WORLD);
-                MPI_Recv(recv_array, recv_size, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                MPI_Ssend(send_0_array, send_size, MPI_INT, 1, 0, MPI_COMM_WORLD);
+                MPI_Recv(recv_0_array, recv_size, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 end_time = MPI_Wtime();
                 total_time += end_time - start_time;
             }
             else
             {
-                MPI_Recv(recv_array, recv_size, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-                MPI_Ssend(send_array, send_size, MPI_INT, 0, 0, MPI_COMM_WORLD);
+                MPI_Recv(recv_1_array, recv_size, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                MPI_Ssend(recv_1_array, recv_size, MPI_INT, 0, 0, MPI_COMM_WORLD);
             }
         }
 
@@ -85,8 +86,9 @@ int main(int argc, char **argv)
         }
 
         // Free the memory
-        free(send_array);
-        free(recv_array);
+        free(send_0_array);
+        free(recv_1_array);
+        free(recv_0_array);
     }
 
     // Close the output file

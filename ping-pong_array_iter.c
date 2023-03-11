@@ -52,6 +52,7 @@ int main(int argc, char **argv)
     {
         total_time = 0;
         for (z = 0; z <= iterations_per_limit; z++)
+        {
             // printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);
             //  Send the array from rank 0
             if (rank == 0)
@@ -89,13 +90,13 @@ int main(int argc, char **argv)
 
                 MPI_Ssend(recv_1_array, i, MPI_INT, 0, 0, MPI_COMM_WORLD);
             }
+        }
+        // i++;
+        printf("Rank: %d; Total time: %.15f seconds\n", rank, total_time / (double)iterations_per_limit);
     }
-    // i++;
-    printf("Rank: %d; Total time: %.15f seconds\n", rank, total_time / (double)iterations_per_limit);
-}
 
-// Finalize MPI
-MPI_Finalize();
+    // Finalize MPI
+    MPI_Finalize();
 
-return 0;
+    return 0;
 }

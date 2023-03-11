@@ -22,9 +22,9 @@ int main(int argc, char **argv)
         MPI_Finalize();
         return 1;
     }
-
+    int i;
     // Set up the array to be sent
-    for (int i = 0; i < ARRAY_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE; i++)
     {
         send_array[i] = i + rank * ARRAY_SIZE;
     }

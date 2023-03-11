@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     }
 
     // Perform ping-pong communication between the two processes with varying array sizes
-    for (send_size = 100; send_size <= 1000 * 3; send_size += 100)
+    for (send_size = 100; send_size <= 1000 * 7; send_size += 100)
     {
         recv_size = send_size;
         send_array = (int *)malloc(send_size * sizeof(int));
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
                 }
 
                 start_time = MPI_Wtime();
-                MPI_Send(send_array, send_size, MPI_INT, 1, 0, MPI_COMM_WORLD);
+                MPI_Ssend(send_array, send_size, MPI_INT, 1, 0, MPI_COMM_WORLD);
                 MPI_Recv(recv_array, recv_size, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 end_time = MPI_Wtime();
                 total_time += end_time - start_time;
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
             else
             {
                 MPI_Recv(recv_array, recv_size, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-                MPI_Send(send_array, send_size, MPI_INT, 0, 0, MPI_COMM_WORLD);
+                MPI_Ssend(send_array, send_size, MPI_INT, 0, 0, MPI_COMM_WORLD);
             }
         }
 

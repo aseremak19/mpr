@@ -113,7 +113,7 @@ int main(int argc, char **argv)
     // printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
     MPI_Finalize();
 
-    free(message_aloc);
+    // free(message_aloc);
 
     return 0;
 }

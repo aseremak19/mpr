@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     // Set up the array to be sent
     for (i = 0; i < ARRAY_SIZE; i++)
     {
-        send_array[i] = i + rank * ARRAY_SIZE;
+        send_0_array[i] = i + rank * ARRAY_SIZE;
     }
 
     // Send the array from rank 0 to all other ranks

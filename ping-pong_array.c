@@ -53,7 +53,7 @@ int main(int argc, char **argv)
             MPI_Barrier(MPI_COMM_WORLD);
             start_time = MPI_Wtime();
 
-            MPI_Send(send_0_array, i, MPI_INT, 1, 0, MPI_COMM_WORLD);
+            MPI_Ssend(send_0_array, i, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(recv_0_array, i, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
             /*printf("Rank %d received array:", rank);
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
             printf("\n");
             printf("\n");*/
 
-            MPI_Send(recv_1_array, i, MPI_INT, 0, 0, MPI_COMM_WORLD);
+            MPI_Ssend(recv_1_array, i, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }
         // i++;
     }

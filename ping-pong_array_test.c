@@ -10,6 +10,11 @@ int main(int argc, char **argv)
     int *recv_array;
     double start_time, end_time, total_time, avg_time;
 
+    int iteration_limit, iteration_per_;
+
+    iteration_limit = 1000;
+    iteration_per_ = 100;
+
     // Initialize MPI
     MPI_Init(&argc, &argv);
 
@@ -24,14 +29,14 @@ int main(int argc, char **argv)
     }
 
     // Perform ping-pong communication between the two processes with varying array sizes
-    for (send_size = 10; send_size <= 1000; send_size += 10)
+    for (send_size = 10; send_size <= iteration_limit * 10; send_size += 10)
     {
         recv_size = send_size;
         send_array = (int *)malloc(send_size * sizeof(int));
         recv_array = (int *)malloc(recv_size * sizeof(int));
 
         total_time = 0.0;
-        for (i = 0; i < 100; i++)
+        for (i = 0; i < iteration_per_; i++)
         {
             if (rank == 0)
             {
@@ -55,7 +60,7 @@ int main(int argc, char **argv)
         }
 
         // Compute the average time for 100 iterations
-        avg_time = total_time / 100.0;
+        avg_time = total_time / (double)iteration_per_;
 
         // Print the average time and the array size
         if (rank == 0)

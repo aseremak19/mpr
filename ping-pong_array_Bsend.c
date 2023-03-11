@@ -30,6 +30,21 @@ int main(int argc, char **argv)
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
+    // creating CSV file
+    FILE *file = NULL;
+    if (rank == 0)
+    {
+        file = fopen("output_Bsend.csv", "w");
+        if (file == NULL)
+        {
+            printf("Error opening output file.\n");
+            MPI_Abort(MPI_COMM_WORLD, 1);
+        }
+
+        // Write the header row to the output file
+        fprintf(file, "Array Size,Average Time\n");
+    }
+
     // Allocate the buffer for MPI_Buffered communication
     int buffer_attached_size;
 
@@ -75,6 +90,7 @@ int main(int argc, char **argv)
         if (rank == 0)
         {
             printf("Average time for array size %d: %.15f seconds\n", send_size, avg_time);
+            fprintf(file, "%d,%.15f\n", send_size, avg_time);
         }
 
         // Free the memory
@@ -82,6 +98,12 @@ int main(int argc, char **argv)
         free(recv_array);
         MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);
         free(buffer_attached);
+    }
+
+    // Close the output file
+    if (rank == 0)
+    {
+        fclose(file);
     }
 
     // Finalize MPI

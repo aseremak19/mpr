@@ -8,6 +8,7 @@ int main(int argc, char **argv)
     int send_size, recv_size;
     int *send_0_array;
     int *recv_1_array;
+    int *recv_0_array;
     double start_time, end_time, total_time, avg_time;
 
     int iteration_limit, iteration_per_;

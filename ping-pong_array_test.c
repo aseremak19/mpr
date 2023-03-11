@@ -28,6 +28,21 @@ int main(int argc, char **argv)
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
+    // creating CSV file
+    FILE *file = NULL;
+    if (rank == 0)
+    {
+        file = fopen("output_Ssend.csv", "w");
+        if (file == NULL)
+        {
+            printf("Error opening output file.\n");
+            MPI_Abort(MPI_COMM_WORLD, 1);
+        }
+
+        // Write the header row to the output file
+        filerintf(file, "Array Size,Average Time\n");
+    }
+
     // Perform ping-pong communication between the two processes with varying array sizes
     for (send_size = 1; send_size <= iteration_limit; send_size += 1)
     {
@@ -62,15 +77,22 @@ int main(int argc, char **argv)
         // Compute the average time for 100 iterations
         avg_time = total_time / (double)iteration_per_;
 
-        // Print the average time and the array size
+        // Print the average time and the array size and save it to file
         if (rank == 0)
         {
             printf("Average time for array size %d: %.15f seconds\n", send_size, avg_time);
+            fprintf(file, "%d,%.15f\n", send_size, avg_time);
         }
 
         // Free the memory
         free(send_array);
         free(recv_array);
+    }
+
+    // Close the output file
+    if (rank == 0)
+    {
+        fclose(file);
     }
 
     // Finalize MPI

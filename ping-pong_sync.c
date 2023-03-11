@@ -38,23 +38,19 @@ int main(int argc, char **argv)
     int *message_aloc;
     message_aloc = (int *)malloc(size_message + 1);
 
-    if (rank == 0)
+    printf("---- Array message:\n ");
+    for (j = 0; j < size_message; j++)
     {
+        message[j] = getRandom(1, 15);
+        printf(" %d ", message[j]);
+    }
+    printf("\n \n");
 
-        printf("---- Array message:\n ");
-        for (j = 0; j < size_message; j++)
-        {
-            message[j] = getRandom(1, 15);
-            printf(" %d ", message[j]);
-        }
-        printf("\n \n");
-
-        printf("---- Array message_aloc:\n ");
-        for (j = 0; j < size_message; j++)
-        {
-            message_aloc[j] = message[j];
-            printf(" %d ", message_aloc[j]);
-        }
+    printf("---- Array message_aloc:\n ");
+    for (j = 0; j < size_message; j++)
+    {
+        message_aloc[j] = message[j];
+        printf(" %d ", message_aloc[j]);
     }
 
     // start_time = MPI_Wtime();

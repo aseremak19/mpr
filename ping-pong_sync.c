@@ -43,6 +43,9 @@ int main(int argc, char **argv)
     }
     printf("\n \n");
 
+    int *message_aloc;
+    message_aloc = (int *)malloc(size_message + 1);
+
     // start_time = MPI_Wtime();
 
     // message = 0;
@@ -67,8 +70,8 @@ int main(int argc, char **argv)
         {
             // message = 0;
 
-            int j;
-            // printf("Iteraton: %d;  ", i);
+            // int j;
+            //  printf("Iteraton: %d;  ", i);
             /*for (j = 0; j < i + 1; j++)
             {
                 message[j] = 1;
@@ -102,5 +105,6 @@ int main(int argc, char **argv)
     // total_time = end_time - start_time;
     // printf("Rank: %d; Total time: %f seconds\n", rank, total_time);
     MPI_Finalize();
+    free(message_aloc);
     return 0;
 }

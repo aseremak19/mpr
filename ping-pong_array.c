@@ -34,6 +34,7 @@ int main(int argc, char **argv)
     }
 
     i = 0;
+    int j;
     for (i = 0; i < iteration_limit; i++)
     {
         printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);
@@ -43,9 +44,9 @@ int main(int argc, char **argv)
             MPI_Send(send_0_array, ARRAY_SIZE, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(recv_0_array, ARRAY_SIZE, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             printf("Rank %d received array:", rank);
-            for (i = 0; i < ARRAY_SIZE; i++)
+            for (j = 0; j < i; j++)
             {
-                printf(" %d", recv_0_array[i]);
+                printf(" %d", recv_0_array[j]);
             }
             printf("\n");
         }
@@ -53,9 +54,9 @@ int main(int argc, char **argv)
         {
             MPI_Recv(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             printf("Rank %d received array:", rank);
-            for (i = 0; i < ARRAY_SIZE; i++)
+            for (j = 0; j < ARRAY_SIZE; j++)
             {
-                printf(" %d", recv_1_array[i]);
+                printf(" %d", recv_1_array[j]);
             }
             printf("\n");
             MPI_Send(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD);

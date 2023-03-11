@@ -31,8 +31,7 @@ int main(int argc, char **argv)
     }
 
     // Allocate the buffer for MPI_Buffered communication
-    int buffer[BUFFER_SIZE];
-    MPI_Buffer_attach(buffer, BUFFER_SIZE);
+    int buffer_attached_size;
 
     // Perform ping-pong communication between the two processes with varying array sizes
     for (send_size = 1; send_size <= iteration_limit; send_size += 1)
@@ -40,6 +39,10 @@ int main(int argc, char **argv)
         recv_size = send_size;
         send_array = (int *)malloc(send_size * sizeof(int));
         recv_array = (int *)malloc(recv_size * sizeof(int));
+
+        buffer_attached_size = MPI_BSEND_OVERHEAD + sizeof(int) * send_size;
+        char *buffer_attached = (char *)malloc(buffer_attached_size);
+        MPI_Buffer_attach(buffer_attached, buffer_attached_size);
 
         total_time = 0.0;
         for (i = 0; i < iteration_per_; i++)
@@ -77,12 +80,12 @@ int main(int argc, char **argv)
         // Free the memory
         free(send_array);
         free(recv_array);
+        MPI_Buffer_detach(&buffer_attached, &buffer_attached_size);
+        free(buffer_attached);
     }
 
-    // Detach the buffer and free the memory
-    MPI_Buffer_detach(&buffer, &BUFFER_SIZE);
-
     // Finalize MPI
+    MPI_Buffer_detach(&recv_array, &send_array, &size);
     MPI_Finalize();
 
     return 0;

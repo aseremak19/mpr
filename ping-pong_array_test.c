@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     }
 
     // Perform ping-pong communication between the two processes with varying array sizes
-    for (send_size = 1000; send_size <= 10000; send_size += 1000)
+    for (send_size = 100; send_size <= 1000; send_size += 100)
     {
         recv_size = send_size;
         send_array = (int *)malloc(send_size * sizeof(int));
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
         // Print the average time and the array size
         if (rank == 0)
         {
-            printf("Average time for array size %d: %f seconds\n", send_size, avg_time);
+            printf("Average time for array size %d: %.15f seconds\n", send_size, avg_time);
         }
 
         // Free the memory used for the arrays

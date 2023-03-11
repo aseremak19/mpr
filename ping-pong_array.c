@@ -22,7 +22,7 @@ int main(int argc, char **argv)
         MPI_Finalize();
         return 1;
     }
-    int i;
+
     // Set up the array to be sent
     for (i = 0; i < ARRAY_SIZE; i++)
     {

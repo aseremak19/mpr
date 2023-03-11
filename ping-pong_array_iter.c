@@ -92,7 +92,10 @@ int main(int argc, char **argv)
             }
         }
         // i++;
-        printf("Rank: %d; Total time: %.15f seconds\n", rank, total_time / (double)iterations_per_limit);
+        if (rank == 0)
+        {
+            printf("Rank: %d; Total time: %.15f seconds\n", rank, total_time / (double)iterations_per_limit);
+        }
     }
 
     // Finalize MPI

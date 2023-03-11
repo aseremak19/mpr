@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     {
         MPI_Recv(recv_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         printf("Rank %d received array:", rank);
-        for (int i = 0; i < ARRAY_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE; i++)
         {
             printf(" %d", recv_array[i]);
         }

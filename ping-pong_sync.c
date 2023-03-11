@@ -35,9 +35,6 @@ int main(int argc, char **argv)
     size_t size_message = sizeof(message) / sizeof(message[0]);
     printf("Size of: %d\n ", size_message);
 
-    int *message_aloc;
-    message_aloc = (int *)malloc(size_message + 1);
-
     printf("---- Array message:\n ");
     for (j = 0; j < size_message; j++)
     {
@@ -46,12 +43,15 @@ int main(int argc, char **argv)
     }
     printf("\n \n");
 
+    /*
+    int *message_aloc;
+    message_aloc = (int *)malloc(size_message + 1);
     printf("---- Array message_aloc:\n ");
     for (j = 0; j < size_message; j++)
     {
         message_aloc[j] = message[j];
         printf(" %d ", message_aloc[j]);
-    }
+    }*/
 
     // start_time = MPI_Wtime();
 

@@ -63,7 +63,7 @@ int main(int argc, char **argv)
             printf("Average time for array size %d: %.15f seconds\n", send_size, avg_time);
         }
 
-        // Free the memory used for the arrays
+        // Free the memory
         free(send_array);
         free(recv_array);
     }

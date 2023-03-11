@@ -33,10 +33,10 @@ int main(int argc, char **argv)
     int message[iterations_limit + 1];
     int j;
 
-    size_t size = sizeof(message) / sizeof(message[0]);
-    printf("Size of: %d\n ", size);
+    size_t size_message = sizeof(message) / sizeof(message[0]);
+    printf("Size of: %d\n ", size_message);
     printf("---- Array:\n ");
-    for (j = 0; j < size; j++)
+    for (j = 0; j < size_message; j++)
     {
         message[j] = getRandom(1, 15);
         printf(" %d ", message[j]);

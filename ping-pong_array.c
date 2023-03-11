@@ -37,8 +37,8 @@ int main(int argc, char **argv)
     int j;
     for (i = 0; i < iteration_limit; i++)
     {
-        printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);
-        // Send the array from rank 0
+        // printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);
+        //  Send the array from rank 0
         if (rank == 0)
         {
             MPI_Send(send_0_array, ARRAY_SIZE, MPI_INT, 1, 0, MPI_COMM_WORLD);

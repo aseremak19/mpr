@@ -81,7 +81,7 @@ int main(int argc, char **argv)
             start_time = MPI_Wtime();
             MPI_Send(&message, i, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(&message, i, MPI_INT, 1, 0, MPI_COMM_WORLD, &status);
-            // printf("Process %d received message %d from process %d at iteration: %d\n", rank, *message, status.MPI_SOURCE, i);
+            printf("Process %d received message %d from process %d at iteration: %d\n", rank, *message, status.MPI_SOURCE, i);
             //   i++;
             end_time = MPI_Wtime();
             total_time = (end_time - start_time) / 2;

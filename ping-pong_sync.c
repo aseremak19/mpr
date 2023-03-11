@@ -30,6 +30,19 @@ int main(int argc, char **argv)
 
     i = 0;
 
+    int message[iterations_limit + 1];
+    int j;
+
+    size_t size = sizeof(message) / sizeof(message[0]);
+    printf("Size of: %d\n ", size);
+    printf("---- Array:\n ");
+    for (j = 0; j < size; j++)
+    {
+        message[j] = getRandom(1, 15);
+        printf(" %d ", message[j]);
+    }
+    printf("\n \n");
+
     // start_time = MPI_Wtime();
 
     // message = 0;
@@ -37,7 +50,7 @@ int main(int argc, char **argv)
     // MPI_Barrier(MPI_COMM_WORLD);
     while (i < iterations_limit + 1)
     {
-        int message[i + 1];
+        /*int message[i + 1];
         int j;
 
         size_t size = sizeof(message) / sizeof(message[0]);
@@ -49,18 +62,18 @@ int main(int argc, char **argv)
             printf(" %d ", message[j]);
         }
         printf("\n \n");
-
+*/
         if (rank == 0)
         {
             // message = 0;
 
             int j;
             // printf("Iteraton: %d;  ", i);
-            for (j = 0; j < i + 1; j++)
+            /*for (j = 0; j < i + 1; j++)
             {
                 message[j] = 1;
                 // printf("%d", message[j]);
-            }
+            }*/
 
             // message++;
 

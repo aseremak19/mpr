@@ -40,7 +40,7 @@ int main(int argc, char **argv)
         }
 
         // Write the header row to the output file
-        filerintf(file, "Array Size,Average Time\n");
+        fprintf(file, "Array Size,Average Time\n");
     }
 
     // Perform ping-pong communication between the two processes with varying array sizes

@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     }
 
     i = 0;
-    for (i < iteration_limit)
+    for (i = 0; i < iteration_limit; i++)
     {
         printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);
         // Send the array from rank 0
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
             printf("\n");
             MPI_Send(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }
-        i++;
+        // i++;
     }
 
     // Finalize MPI

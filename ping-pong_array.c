@@ -37,7 +37,7 @@ int main(int argc, char **argv)
         printf("Rank %d received array:", rank);
         for (i = 0; i < ARRAY_SIZE; i++)
         {
-            printf(" %d", recv_array[i]);
+            printf(" %d", recv_0_array[i]);
         }
         printf("\n");
     }
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
         printf("Rank %d received array:", rank);
         for (i = 0; i < ARRAY_SIZE; i++)
         {
-            printf(" %d", recv_array[i]);
+            printf(" %d", recv_1_array[i]);
         }
         printf("\n");
         MPI_Send(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD);

@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     i = 0;
     while (i < iteration_limit)
     {
-        printf("Iteration %d\n", i);
+        printf("Iteration: %d \niteration limit: %d\n", i, iteration_limit);
         // Send the array from rank 0
         if (rank == 0)
         {

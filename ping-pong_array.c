@@ -59,6 +59,7 @@ int main(int argc, char **argv)
                 printf(" %d", recv_1_array[j]);
             }
             printf("\n");
+            printf("\n");
             MPI_Send(recv_1_array, ARRAY_SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD);
         }
         // i++;

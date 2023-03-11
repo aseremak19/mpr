@@ -30,7 +30,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    int iteration_limit = 100;
+    int iteration_limit = 1000;
 
     int send_0_array[iteration_limit];
     int recv_1_array[iteration_limit];
@@ -59,19 +59,18 @@ int main(int argc, char **argv)
             MPI_Ssend(send_0_array, i, MPI_INT, 1, 0, MPI_COMM_WORLD);
             MPI_Recv(recv_0_array, i, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
+            // Measuring and displaying time
             end_time = MPI_Wtime();
             total_time = (end_time - start_time) / 2;
             printf("Rank: %d; Total time: %.15f seconds\n", rank, total_time);
 
-            printf("Rank %d received array:", rank);
+            /*printf("Rank %d received array:", rank);
             for (j = 0; j < i; j++)
             {
                 printf(" %d", recv_0_array[j]);
             }
-            printf("\n");
-
-            // Measurign and displaying time
-                }
+            printf("\n");*/
+        }
         else
         {
             MPI_Barrier(MPI_COMM_WORLD);

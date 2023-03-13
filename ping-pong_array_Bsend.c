@@ -126,7 +126,7 @@ int main(int argc, char **argv)
         printf("%s", hostname[i]);
     }*/
 
-    printf("Rank: %d; Hostanme: %s", rank, hostname);
+    printf("Rank: %d; Hostanme: %s\n", rank, hostname);
     MPI_Finalize();
 
     return 0;

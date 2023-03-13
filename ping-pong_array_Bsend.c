@@ -13,6 +13,9 @@ int main(int argc, char **argv)
     int *recv_0_array;
     double start_time, end_time, total_time, avg_time;
 
+    char hostname[MPI_MAX_PROCESSOR_NAME];
+    MPI_Get_processor_name(hostname, &len);
+
     int iteration_limit, iteration_per_;
 
     iteration_limit = 1000 * 3;
@@ -35,7 +38,7 @@ int main(int argc, char **argv)
     FILE *file = NULL;
     if (rank == 0)
     {
-        file = fopen("output_Bsend.csv", "w");
+        file = fopen("output_Bsend_2nodes.csv", "w");
         if (file == NULL)
         {
             printf("Error opening output file.\n");
@@ -115,6 +118,12 @@ int main(int argc, char **argv)
     // Finalize MPI
     MPI_Buffer_detach(&recv_1_array, &size);
     MPI_Buffer_detach(&send_0_array, &size);
+
+    printf("Rank: %d; executed on host: ", rank);
+    for (i = 0; i < MPI_MAX_PROCESSOR_NAME; i++)
+    {
+        printf("%s", hostname[i]);
+    }
     MPI_Finalize();
 
     return 0;

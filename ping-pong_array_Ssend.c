@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     FILE *file = NULL;
     if (rank == 0)
     {
-        file = fopen("output_Ssend.csv", "w");
+        file = fopen("output_Ssend_2nodes.csv", "w");
         if (file == NULL)
         {
             printf("Error opening output file.\n");

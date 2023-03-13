@@ -23,6 +23,10 @@ int main(int argc, char **argv)
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
+    char hostname[MPI_MAX_PROCESSOR_NAME];
+    int len;
+    MPI_Get_processor_name(hostname, &len);
+
     if (size != 2)
     {
         printf("This program should be run with exactly 2 processes.\n");
@@ -98,6 +102,7 @@ int main(int argc, char **argv)
         fclose(file);
     }
 
+    printf("Rank: %d; Hostanme: %s\n", rank, hostname);
     // Finalize MPI
     MPI_Finalize();
 

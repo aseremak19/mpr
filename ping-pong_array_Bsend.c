@@ -14,6 +14,7 @@ int main(int argc, char **argv)
     double start_time, end_time, total_time, avg_time;
 
     char hostname[MPI_MAX_PROCESSOR_NAME];
+    int len;
     MPI_Get_processor_name(hostname, &len);
 
     int iteration_limit, iteration_per_;

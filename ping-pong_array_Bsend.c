@@ -120,11 +120,11 @@ int main(int argc, char **argv)
     MPI_Buffer_detach(&recv_1_array, &size);
     MPI_Buffer_detach(&send_0_array, &size);
 
-    printf("Rank: %d; executed on host: ", rank);
+    /*printf("Rank: %d; executed on host: ", rank);
     for (i = 0; i < MPI_MAX_PROCESSOR_NAME; i++)
     {
         printf("%s", hostname[i]);
-    }
+    }*/
     MPI_Finalize();
 
     return 0;

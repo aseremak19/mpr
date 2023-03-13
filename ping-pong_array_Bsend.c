@@ -13,10 +13,6 @@ int main(int argc, char **argv)
     int *recv_0_array;
     double start_time, end_time, total_time, avg_time;
 
-    char hostname[MPI_MAX_PROCESSOR_NAME];
-    int len;
-    MPI_Get_processor_name(hostname, &len);
-
     int iteration_limit, iteration_per_;
 
     iteration_limit = 1000 * 3;
@@ -28,6 +24,10 @@ int main(int argc, char **argv)
     // Get the number of processes and the rank of the current process
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    char hostname[MPI_MAX_PROCESSOR_NAME];
+    int len;
+    MPI_Get_processor_name(hostname, &len);
 
     if (size != 2)
     {

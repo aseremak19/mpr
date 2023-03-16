@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 
     int iteration_limit, iteration_per_;
 
-    iteration_limit = 1000 * 40;
+    iteration_limit = 1000 * 30;
     iteration_per_ = 100;
 
     // Initialize MPI
@@ -67,6 +67,7 @@ int main(int argc, char **argv)
                     send_0_array[j] = j + rank * send_size;
                 }
 
+                MPI_Barrier(MPI_COMM_WORLD);
                 start_time = MPI_Wtime();
                 MPI_Ssend(send_0_array, send_size, MPI_INT, 1, 0, MPI_COMM_WORLD);
                 MPI_Recv(recv_0_array, recv_size, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -75,6 +76,7 @@ int main(int argc, char **argv)
             }
             else
             {
+                MPI_Barrier(MPI_COMM_WORLD);
                 MPI_Recv(recv_1_array, recv_size, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 MPI_Ssend(recv_1_array, recv_size, MPI_INT, 0, 0, MPI_COMM_WORLD);
             }

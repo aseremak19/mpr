@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
     int iteration_limit, iteration_per_;
 
-    iteration_limit = 1000 * 30;
+    iteration_limit = 1000 * 20;
     iteration_per_ = 100;
 
     // Initialize MPI
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     int buffer_attached_size;
 
     // Perform ping-pong communication between the two processes with varying array sizes
-    for (send_size = 1; send_size <= iteration_limit; send_size += 1)
+    for (send_size = 1; send_size <= iteration_limit * 4; send_size += 1 * 10)
     {
         recv_size = send_size;
         send_0_array = (int *)malloc(send_size * sizeof(int));
